@@ -15,13 +15,16 @@ for i_episode in range(100):
         #print(observation)
         state = toint(observation[2])
         r = random.randint(0, 9)
-        if state in Q and r <= 6:
+        if state in Q and r <= 4:
             if Q[state][0] > Q[state][1]:
                 action = 0
             else:
                 action = 1
         else:
-            action = random.randint(0,1)
+            if state < 0:
+                action = 0
+            else:
+                action = 1                    
                 
         observation, reward, done, info = env.step(action)
         next_state = toint(observation[2])
