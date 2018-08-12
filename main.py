@@ -54,36 +54,34 @@ def get_state(x, x_dot, theta, theta_dot):
     else:
         state += 108
 
-    return state    
+    return state
 
 Q = dict()
 gamma = 0.9
-prev_state = -1
-prev_action = -1
-for i_episode in range(1000):
+
+for i_episode in range(100):
     observation = env.reset()
-    for t in range(100):
+    for t in range(200):
         env.render()
         #print(observation)        
         state = get_state(observation[0], observation[1], observation[2], observation[3])
 
-        -- update prev_state Q value
-        if prev_state ~= -1 and prev_action ~= -1:
-            if prev_state not in Q:
-                Q[prev_state] = [0,0]
-            if state not in Q:
-                Q[state] = [0,0]
-            Q[prev_state][action] = reward + gamma * next_max
-        
+        if state < 0:
+            break
+
+        if state not in Q:
+            Q[state] = [0, 0]
         
         r = random.randint(0, 9)
-        if state in Q and r <= 6:
+        if r <= 6:
             if Q[state][0] > Q[state][1]:
                 action = 0
             else:
                 action = 1
+        elif state > 82:
+            action = 1
         else:
-            action = random.randint(0, 1)            
+            action = 0
                 
         observation, reward, done, info = env.step(action)
         next_state = get_state(observation[0], observation[1], observation[2], observation[3])
@@ -95,11 +93,7 @@ for i_episode in range(1000):
             else:
                 next_max = Q[next_state][1]
 
-        if state not in Q:
-            Q[state] = [0, 0]        
-            
-        
-                
+            Q[state][action] = reward + gamma * next_max
         if done:
             #print(Q)
             print("Episode finished after {} timesteps".format(t+1))
