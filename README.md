@@ -27,3 +27,19 @@ Mapping the 4 values to one.
 One method is ...
 
 Another method is to generate parameters for each value, like y = k1*x + k2*x_dot + k3*theta + k4*theta_dot. You can find this implementation [here](http://kvfrans.com/simple-algoritms-for-solving-cartpole/).
+
+## Deep Q-learning
+
+### Using tensorflow docker
+
+To avoid installing dependencies, I used tensorflow docker image.
+After installing docker, next we need to login in the command line.
+*Attension: docker login is using by your docker id, not the id like url.
+To get your docker id log into [docker hub](https://hub.docker.com/) with your email and password. On the top right is docker id. Use that in the CLI and you'll probably be fine.*
+
+``` sh
+docker login
+docker pull tensorflow/tensorflow:latest
+
+```
+
