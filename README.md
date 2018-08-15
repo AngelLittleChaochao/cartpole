@@ -44,9 +44,6 @@ Another important thing is how to assign the value in which condition. Here we u
 
 So in this case, we need to define the action. If all the four dimension value are in the middle, whether the pole moves left or not doens't matter, if the value is smaller, it needs to move left; otherwise right. So we can use this method to determine the action. You can also change the value to have your own test.
 
-
-
-
 ## Deep Q-learning
 
 ### Using tensorflow docker
