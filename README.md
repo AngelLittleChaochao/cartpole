@@ -58,3 +58,12 @@ docker login
 docker pull tensorflow/tensorflow:latest
 
 ```
+### Running in docker
+
+When running in docker, there is no GUI, so using xvfb-run in a virtual X server.
+
+``` sh
+xvfb-run -s "-screen 0 1400x900x24" python3 main.py
+
+```
+
