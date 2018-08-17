@@ -3,10 +3,8 @@ FROM ubuntu
 MAINTAINER Chaochao Tang <chaotang0281@gmail.com>
 
 RUN apt-get update
-RUN apt-get install python3.6
-RUN apt-get install python3-pip
+RUN apt-get -y install python3.6 python3-pip
 RUN pip3 install tensorflow
-RUN pip3 install tensorflow-gpu
 
 # install tflearn and keras:
 RUN pip3 install tflearn==0.3.2
