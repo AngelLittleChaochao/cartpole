@@ -43,7 +43,6 @@ class DQNAgent:
         self.model = self._build_model()  # private method
 
     def _build_model(self):
-
         self.sess = tf.Session()
 
         # neural net to approximate Q-value function:
@@ -81,15 +80,6 @@ class DQNAgent:
             initializer=tf.constant_initializer(0.1),
             collections=c_names)
         self.l3 = tf.matmul(l2, w3) + b3
-
-        #model = Sequential()
-        #model.add(
-        #   Dense(24, input_dim=self.state_size,
-        #        activation='relu'))  # 1st hidden layer; states as input
-        #model.add(Dense(24, activation='relu'))  # 2nd hidden layer
-        #model.add(Dense(self.action_size, activation='linear')
-        #         )  # 2 actions, so 2 output neurons: 0 and 1 (L/R)
-        #model.compile(loss='mse', optimizer=Adam(lr=self.learning_rate))
 
         self.loss = tf.reduce_mean(tf.squared_difference(self.l3, self.a))
 
@@ -145,9 +135,9 @@ class DQNAgent:
         self.model.load_weights(name)
 
     def save(self, name):
-        print('save name:', name)
-        ##self.model.save_weights(name)
-        #### Interact with environment
+        saver = tf.train.Saver()
+        save_path = saver.save(self.sess, name)
+        print('save name:', save_path)
 
 
 agent = DQNAgent(state_size, action_size)  # initialise agent
@@ -171,4 +161,4 @@ for e in range(n_episodes):  # iterate over new episodes of the game
         if len(agent.memory) > batch_size:
             agent.replay(batch_size)
     if e % 50 == 0:
-        agent.save(output_dir + "weights_" + '{:04d}'.format(e) + '.hdf5')
+        agent.save(output_dir + "weights_" + '{:04d}'.format(e) + '.ckpt')
